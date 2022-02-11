@@ -1,5 +1,12 @@
-from flask import Flask
-from app.routes.series_route import serie_route
+from flask import Blueprint, Flask
+from app.routes.series_route import bp as bp_series
+
+
+
+bp_api = Blueprint('api', __name__, url_prefix='/api')
 
 def init_app(app: Flask):
-    serie_route(app)
+
+    bp_api.register_blueprint(bp_series)
+
+    app.register_blueprint(bp_api)

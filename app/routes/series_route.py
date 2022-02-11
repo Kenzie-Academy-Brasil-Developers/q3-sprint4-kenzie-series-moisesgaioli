@@ -1,8 +1,11 @@
-from flask import Flask
-from app.controllers import serie_controller
+from flask import Blueprint
+from app.controllers import series_controller
 
 
-def serie_route(app: Flask):
-    @app.get('/series')
-    def retrieve():
-        return serie_controller.get_series()
+bp = Blueprint('series', __name__, url_prefix='/series')
+
+
+bp.get('')(series_controller.get_series)
+bp.get('/<int:id>')(series_controller.select_by_id)
+bp.post('')(series_controller.create_series)
+ 
